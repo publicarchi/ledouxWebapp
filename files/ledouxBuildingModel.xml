@@ -1,0 +1,30 @@
+<xf:model id="expertise" xmlns:xf="http://www.w3.org/2002/xforms" xmlns:ev="http://www.w3.org/2001/xml-events">
+    <xf:instance id="ledouxBuilding" src="/ledoux/building/_xprBuildingInstance.xml"/>
+    <xf:submission id="submit" resource="/ledoux/building/put" method="put" replace="none">
+        <!--<xf:action ev:event="xforms-submit">
+            &lt;!&ndash;set value for maintenance event informations&ndash;&gt;
+            <xf:action if="/xpr:expertise/@xml:id">
+                <xf:setvalue ref="instance('xprExpertise')/xpr:control/xpr:maintenanceStatus" value="'revised'"/>
+                <xf:setvalue ref="instance('xprExpertise')/xpr:control/xpr:maintenanceHistory/xpr:maintenanceEvent[1]/xpr:eventType" value="'revised'"/>
+            </xf:action>
+            <xf:action if="not(/xpr:expertise/@xml:id)">
+                <xf:setvalue ref="instance('xprExpertise')/xpr:control/xpr:maintenanceStatus" value="'new'"/>
+                <xf:setvalue ref="instance('xprExpertise')/xpr:control/xpr:maintenanceHistory/xpr:maintenanceEvent[1]/xpr:eventType" value="'created'"/>
+                <xf:setvalue ref="instance('xprExpertise')/xpr:control/xpr:maintenanceHistory/xpr:maintenanceEvent[1]/xpr:eventDescription" value="'Création de la fiche.'"/>
+            </xf:action>
+            <xf:setvalue ref="instance('xprExpertise')/xpr:control/xpr:maintenanceHistory/xpr:maintenanceEvent[1]/xpr:eventDateTime/@standardDateTime
+                            | instance('xprExpertise')/xpr:control/xpr:maintenanceHistory/xpr:maintenanceEvent[1]/xpr:eventDateTime"
+                         value="now()"/>
+        </xf:action>-->
+        <xf:action ev:event="xforms-submit-done">
+            <xf:hide dialog="waitingMessage"/>
+            <xf:message level="modal">La ressource a été enregistrée ! Status : <xf:output value="event('response-status-code')"/>; URI : <xf:output value="event('resource-uri')"/>; Headers : <xf:output value="event('response-headers')"/>; Reason : <xf:output value="event('response-reason-phrase')"/> Body : <xf:output value="event('response-body')"/></xf:message>
+            <xf:setvalue value="event('response-body')//*:id" ref="instance('response')"/>
+            <xf:load resource="/ledoux/buildings/view" show="replace"/>
+        </xf:action>
+        <xf:action ev:event="xforms-submit-error">
+            <xf:hide dialog="waitingMessage"/>
+            <xf:message level="modal">Une erreur est apparue : <xf:output value="event('error-type')"/>; Status : <xf:output value="event('response-status-code')"/>; URI : <xf:output value="event('resource-uri')"/>; Headers : <xf:output value="event('response-headers')"/>; Reason : <xf:output value="event('response-reason-phrase')"/> Body : <xf:output value="event('response-body')"/></xf:message>
+        </xf:action>
+    </xf:submission>
+</xf:model>

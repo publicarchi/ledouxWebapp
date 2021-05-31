@@ -1,0 +1,14 @@
+<nav id="navForm" xmlns:xf="http://www.w3.org/2002/xforms" xmlns:ev="http://www.w3.org/2001/xml-events">
+    <xf:trigger>
+        <xf:label>Œuvres</xf:label>
+        <xf:toggle case="referencesPanel" ev:event="DOMActivate"/>
+    </xf:trigger>
+    <xf:trigger>
+        <xf:label>Expressions<!-- de l’expertise--></xf:label>
+        <xf:toggle case="sessionsPanel" ev:event="DOMActivate"/>
+    </xf:trigger>
+    <xf:trigger>
+        <xf:label>Gravures<!-- de l’expertise--></xf:label>
+        <xf:toggle case="participantsPanel" ev:event="DOMActivate"/>
+    </xf:trigger>
+</nav>

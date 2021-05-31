@@ -1,0 +1,53 @@
+<form xmlns:xf="http://www.w3.org/2002/xforms" xmlns:ev="http://www.w3.org/2001/xml-events">
+    <xf:group ref="instance('ledouxBuilding')/tei:objectIdentifier">
+        <xf:label>Identification</xf:label>
+        <xf:input ref="tei:objectName" incremental="true">
+            <xf:label>Nom</xf:label>
+            <xf:help>Le nom...</xf:help>
+            <xf:alert>Le champ est requis.</xf:alert>
+        </xf:input>
+    </xf:group>
+    <xf:group ref="instance('ledouxBuilding')/tei:listEvent">
+        <xf:repeat nodeset="tei:event">
+            <xf:label>Événements</xf:label>
+            <xf:input ref="tei:persName" incremental="true">
+                <xf:label>Participant</xf:label>
+                <xf:help>La personne...</xf:help>
+                <xf:alert>Le champ est requis.</xf:alert>
+            </xf:input>
+            <xf:input ref="tei:date" incremental="true">
+                <xf:label>Date de l’événement</xf:label>
+                <xf:help>la date...</xf:help>
+                <xf:alert>Le champ est requis.</xf:alert>
+            </xf:input>
+        </xf:repeat>
+    </xf:group>
+    <span>
+    <xf:dialog id="control">
+        <!--<xf:group ref="xpr:control/xpr:maintenanceHistory/xpr:maintenanceEvent[1]">
+            <xf:input ref="xpr:eventDescription">
+                <xf:label>Motif de la révision</xf:label>
+            </xf:input>
+        </xf:group>-->
+            <xf:trigger>
+                <xf:label>Annuler</xf:label>
+                <xf:hide ev:event="DOMActivate" dialog="control"/>
+            </xf:trigger>
+            <xf:submit submission="submit">
+                <xf:show dialog="waitingMessage"/>
+                <xf:label>Enregistrer</xf:label>
+            </xf:submit>
+        </xf:dialog>
+        <xf:trigger>
+            <xf:label>Enregistrer</xf:label>
+            <xf:action if="/tei:objectIdentifier/@xml:id" ev:event="DOMActivate">
+                <xf:show dialog="control"/>
+            </xf:action>
+            <xf:action if="not(/tei:objectIdentifier/@xml:id)" ev:event="DOMActivate">
+                <xf:show dialog="waitingMessage"/>
+                <xf:send submission="submit"/>
+            </xf:action>
+        </xf:trigger>
+        <xf:dialog id="waitingMessage">Enregistrement en cours.</xf:dialog>
+    </span>
+</form>
